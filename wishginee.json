@@ -1,0 +1,1207 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "0.0.0",
+        "title": "Wishginee"
+    },
+    "securityDefinitions": {
+        "AccessToken": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
+        }
+    },
+    "definitions": {
+        "User": {
+            "description": "Users who are going to interact with the system like: Public User, NGO, Social Corporate, Helping Hands",
+            "type": "object",
+            "required": [
+                "first_name",
+                "last_name",
+                "email",
+                "mobile",
+                "password",
+                "group"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "first_name": {
+                    "type": "string"
+                },
+                "last_name": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "mobile": {
+                    "type": "integer"
+                },
+                "profile_photo": {
+                    "type": "string",
+                    "description": "Store the Url of Amazon photo url"
+                },
+                "cover_photo": {
+                    "type": "string"
+                },
+                "website": {
+                    "type": "string"
+                },
+                "country": {
+                    "type": "string"
+                },
+                "city": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "group": {
+                    "type": "array",
+                    "items": {
+                        "description": "Group will have NGO, PU for Public User, HH for Helping Hands, SC for Social Corporate and ADMIN for Administration",
+                        "type": "string"
+                    }
+                },
+                "event_ids": {
+                    "type": "array",
+                    "items": {
+                        "description": "Event IDs of the events which he/she has created",
+                        "type": "integer"
+                    }
+                },
+                "campaign_ids": {
+                    "type": "array",
+                    "items": {
+                        "description": "Campaign IDs of the campaigns which he/she has created",
+                        "type": "integer"
+                    }
+                },
+                "fb_access_code": {
+                    "type": "string"
+                },
+                "access_token": {
+                    "type": "string"
+                },
+                "user_follow_ids": {
+                    "type": "array",
+                    "items": {
+                        "description": "IDs of the user he/she follows",
+                        "type": "integer"
+                    }
+                },
+                "event_follow_ids": {
+                    "type": "array",
+                    "items": {
+                        "description": "IDs of the event he/she follows",
+                        "type": "integer"
+                    }
+                },
+                "campaign_follow_ids": {
+                    "type": "array",
+                    "items": {
+                        "description": "IDs of the campaigns he/she follows",
+                        "type": "integer"
+                    }
+                },
+                "donation_event_ids": {
+                    "type": "array",
+                    "items": {
+                        "description": "Donation IDs of the events in which he/she contributed",
+                        "type": "integer"
+                    }
+                },
+                "donation_campaign_ids": {
+                    "type": "array",
+                    "items": {
+                        "description": "Donation IDs of the Campaigns in which he/she contributed",
+                        "type": "integer"
+                    }
+                }
+            }
+        },
+        "Campaign": {
+            "description": "Stores campaign details when any group user creates a campaign",
+            "type": "object",
+            "required": [
+                "user_id",
+                "name",
+                "abstract",
+                "category",
+                "fund_needed",
+                "date",
+                "location",
+                "campaign_by",
+                "contact_email"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "user_id": {
+                    "type": "integer"
+                },
+                "profile_photo": {
+                    "description": "Store Amazon Photo Link",
+                    "type": "string"
+                },
+                "contact_email": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "abstract": {
+                    "type": "string"
+                },
+                "category": {
+                    "type": "string"
+                },
+                "fund_needed": {
+                    "type": "integer"
+                },
+                "fund_raised": {
+                    "type": "integer"
+                },
+                "story": {
+                    "description": "Pitching details about the campaign",
+                    "type": "string"
+                },
+                "date": {
+                    "type": "string",
+                    "format": "date"
+                },
+                "location": {
+                    "type": "string"
+                },
+                "campaign_by": {
+                    "type": "string"
+                },
+                "followers": {
+                    "type": "array",
+                    "items": {
+                        "description": "User IDs who are following this Campaign",
+                        "type": "integer"
+                    }
+                },
+                "donation_ids": {
+                    "type": "array",
+                    "items": {
+                        "description": "Donation IDs of those who has donated to the campaign",
+                        "type": "integer"
+                    }
+                },
+                "status": {
+                    "description": "Flags: Pending, Approved",
+                    "type": "string"
+                }
+            }
+        },
+        "Event": {
+            "description": "Stores event details when any group user creates a event",
+            "type": "object",
+            "required": [
+                "user_id",
+                "name",
+                "abstract",
+                "fund_needed",
+                "date",
+                "time",
+                "location",
+                "contact_email"
+            ],
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "user_id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "contact_email": {
+                    "type": "string"
+                },
+                "profile_photo": {
+                    "description": "Store Amazon AWS photo url",
+                    "type": "string"
+                },
+                "abstract": {
+                    "type": "string"
+                },
+                "fund_needed": {
+                    "type": "integer"
+                },
+                "fund_raised": {
+                    "type": "integer"
+                },
+                "date": {
+                    "type": "string",
+                    "format": "date"
+                },
+                "time": {
+                    "type": "string",
+                    "format": "time"
+                },
+                "location": {
+                    "type": "string"
+                },
+                "event_by": {
+                    "type": "string"
+                },
+                "followers": {
+                    "type": "array",
+                    "items": {
+                        "description": "User IDs who are following this event",
+                        "type": "integer"
+                    }
+                },
+                "donation_ids": {
+                    "type": "array",
+                    "items": {
+                        "description": "Donation IDs of those who has donated to this event",
+                        "type": "integer"
+                    }
+                }
+            }
+        },
+        "Form": {
+            "description": "Stores the Work Flow of donations with time stamps",
+            "type": "object",
+            "required": [
+                "user_id",
+                "event_added_ids",
+                "event_removed_ids",
+                "campaign_added_ids",
+                "campaign_removed_ids",
+                "amount"
+            ],
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "user_id": {
+                    "type": "integer"
+                },
+                "event_added_ids": {
+                    "type": "array",
+                    "items": {
+                        "description": "IDs of those event in which user contributed/donated",
+                        "type": "integer"
+                    }
+                },
+                "event_removed_ids": {
+                    "type": "array",
+                    "items": {
+                        "description": "IDs of those event in which user got refunded his contribution/donation due to technical problem or by admin",
+                        "type": "integer"
+                    }
+                },
+                "campaign_added_ids": {
+                    "type": "array",
+                    "items": {
+                        "description": "IDs of those campaign in which user contributed/donated",
+                        "type": "integer"
+                    }
+                },
+                "campaign_removed_ids": {
+                    "type": "array",
+                    "items": {
+                        "description": "IDs of those campaign in which user got refunded his contribution/donation due to technical problem or by admin",
+                        "type": "integer"
+                    }
+                },
+                "amount": {
+                    "type": "integer",
+                    "description": "It can be + or -"
+                }
+            }
+        },
+        "Payment": {
+            "description": "Stores all the basic payment details of wishginee",
+            "type": "object",
+            "required": [
+                "donor_id",
+                "donor_name",
+                "donor_email",
+                "donee_id",
+                "donee_name",
+                "donee_email",
+                "amount",
+                "wishginee_charges",
+                "date",
+                "status"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "donor_id": {
+                    "type": "integer"
+                },
+                "donor_name": {
+                    "type": "string"
+                },
+                "donor_email": {
+                    "type": "string"
+                },
+                "donee_id": {
+                    "type": "integer"
+                },
+                "donee_name": {
+                    "type": "string"
+                },
+                "donee_email": {
+                    "type": "string"
+                },
+                "amount": {
+                    "description": "That user want to donate",
+                    "type": "integer"
+                },
+                "wishginee_charges": {
+                    "description": "Wishginee Charges",
+                    "type": "integer"
+                },
+                "final_amount": {
+                    "description": "actual donated amount after wishginee as well as razor pay charges.",
+                    "type": "integer"
+                },
+                "date": {
+                    "type": "string",
+                    "format": "date"
+                },
+                "status": {
+                    "description": "Status will have 3 flags: Pending, Approved, Successful",
+                    "type": "string"
+                }
+            }
+        },
+        "Transaction": {
+            "description": "Stores detailed transaction details between User - Wishginee - Razor Pay",
+            "type": "object",
+            "required": [
+                "payment_id",
+                "transaction_id",
+                "response",
+                "status",
+                "date"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "payment_id": {
+                    "type": "string"
+                },
+                "transaction_id": {
+                    "type": "string"
+                },
+                "response": {
+                    "description": "Store Whole object of response which we get after the processing of request at Razor Pay Side",
+                    "type": "object"
+                },
+                "status": {
+                    "description": "Store the status flag of razor pay",
+                    "type": "string"
+                },
+                "date": {
+                    "type": "string",
+                    "format": "date"
+                }
+            }
+        },
+        "Log": {
+            "description": "Log maintains the log of every interaction of the user.",
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "user_id": {
+                    "type": "string"
+                },
+                "type": {
+                    "description": "Types are Event, Campaign, Donation, Follow, UnFollow",
+                    "type": "string"
+                },
+                "pre_state": {
+                    "type": "string"
+                },
+                "post_state": {
+                    "type": "string"
+                }
+            }
+        },
+        "validationError": {
+            "type": "object",
+            "description": "422 Error",
+            "properties": {
+                "[Field]": {
+                    "description": "Associated error with the field",
+                    "type": "string"
+                }
+            }
+        },
+        "notAuthorizedError": {
+            "description": "403 Error",
+            "properties": {
+                "error": {
+                    "type": "string",
+                    "description": "You are not authenticated to access this end point"
+                }
+            }
+        },
+        "notFoundError": {
+            "type": "object",
+            "description": "404 Error",
+            "properties": {
+                "error": {
+                    "type": "string",
+                    "description": "Are you sure about this as we found nothing about it"
+                }
+            }
+        }
+    },
+    "security": [
+        {
+            "AccessToken": []
+        }
+    ],
+    "paths": {
+        "/users": {
+            "post": {
+                "description": "Creates new User",
+                "security": [],
+                "parameters": [
+                    {
+                        "name": "Body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "User Created",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    },
+                    "403": {
+                        "description": "Not Authorized",
+                        "schema": {
+                            "$ref": "#/definitions/notAuthorizedError"
+                        }
+                    },
+                    "422": {
+                        "description": "Invalid Data",
+                        "schema": {
+                            "$ref": "#/definitions/validationError"
+                        }
+                    }
+                }
+            },
+            "get": {
+                "description": "Get all the users",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/User"
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Not Authorized",
+                        "schema": {
+                            "$ref": "#/definitions/notAuthorizedError"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/authenticate": {
+            "post": {
+                "description": "Authenticate user",
+                "security": [],
+                "parameters": [
+                    {
+                        "name": "Body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "required": [
+                                "email",
+                                "password"
+                            ],
+                            "properties": {
+                                "email": {
+                                    "type": "string"
+                                },
+                                "password": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Authentication",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "access_token": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Invalid Data",
+                        "schema": {
+                            "$ref": "#/definitions/validationError"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{id}": {
+            "get": {
+                "description": "Get user by his associated ID",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    },
+                    "403": {
+                        "description": "Not Authorized",
+                        "schema": {
+                            "$ref": "#/definitions/notAuthorizedError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/notFoundError"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Updates the user using its associated ID",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "Body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    },
+                    "403": {
+                        "description": "Not Authorized",
+                        "schema": {
+                            "$ref": "#/definitions/notAuthorizedError"
+                        }
+                    },
+                    "422": {
+                        "description": "Invalid Data",
+                        "schema": {
+                            "$ref": "#/definitions/validationError"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Deletes the user using its associated ID",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User Deleted",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    },
+                    "403": {
+                        "description": "Not Authorized",
+                        "schema": {
+                            "$ref": "#/definitions/notAuthorizedError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/notFoundError"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{id}/events": {
+            "get": {
+                "description": "get all the created events associated with the User Id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Event"
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Not Authorized",
+                        "schema": {
+                            "$ref": "#/definitions/notAuthorizedError"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{id}/campaigns": {
+            "get": {
+                "description": "Get all created campaigns associated by its ID",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Campaign"
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Not Authorized",
+                        "schema": {
+                            "$ref": "#/definitions/notAuthorizedError"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{id}/followers": {
+            "get": {
+                "description": "Get all followers of user associated by its ID",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/User"
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Not Authorized",
+                        "schema": {
+                            "$ref": "#/definitions/notAuthorizedError"
+                        }
+                    }
+                }
+            }
+        },
+        "/campaigns": {
+            "get": {
+                "description": "Get all the campaigns",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Campaign"
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Not Authorized",
+                        "schema": {
+                            "$ref": "#/definitions/notAuthorizedError"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Create new Campaign",
+                "parameters": [
+                    {
+                        "name": "Body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Campaign"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/User"
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Not Authorized",
+                        "schema": {
+                            "$ref": "#/definitions/notAuthorizedError"
+                        }
+                    },
+                    "422": {
+                        "description": "Invalid Data",
+                        "schema": {
+                            "$ref": "#/definitions/validationError"
+                        }
+                    }
+                }
+            }
+        },
+        "/campaigns/{id}": {
+            "get": {
+                "description": "Get campaign by his associated ID",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Campaign"
+                        }
+                    },
+                    "403": {
+                        "description": "Not Authorized",
+                        "schema": {
+                            "$ref": "#/definitions/notAuthorizedError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/notFoundError"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Updates the campaign using its associated ID",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "Body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Campaign"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Campaign"
+                        }
+                    },
+                    "403": {
+                        "description": "Not Authorized",
+                        "schema": {
+                            "$ref": "#/definitions/notAuthorizedError"
+                        }
+                    },
+                    "422": {
+                        "description": "Invalid Data",
+                        "schema": {
+                            "$ref": "#/definitions/validationError"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Deletes the campaign using its associated ID",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Campaign Deleted",
+                        "schema": {
+                            "$ref": "#/definitions/Campaign"
+                        }
+                    },
+                    "403": {
+                        "description": "Not Authorized",
+                        "schema": {
+                            "$ref": "#/definitions/notAuthorizedError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/notFoundError"
+                        }
+                    }
+                }
+            }
+        },
+        "/events": {
+            "get": {
+                "description": "Get all the events",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Event"
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Not Authorized",
+                        "schema": {
+                            "$ref": "#/definitions/notAuthorizedError"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Creates Event",
+                "parameters": [
+                    {
+                        "name": "Body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Event"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Event"
+                        }
+                    },
+                    "403": {
+                        "description": "Not Authorized",
+                        "schema": {
+                            "$ref": "#/definitions/notAuthorizedError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/notFoundError"
+                        }
+                    }
+                }
+            }
+        },
+        "/events/{id}": {
+            "get": {
+                "description": "Get event by his associated ID",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Event"
+                        }
+                    },
+                    "403": {
+                        "description": "Not Authorized",
+                        "schema": {
+                            "$ref": "#/definitions/notAuthorizedError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/notFoundError"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Updates the event using its associated ID",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "Body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Event"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Event"
+                        }
+                    },
+                    "403": {
+                        "description": "Not Authorized",
+                        "schema": {
+                            "$ref": "#/definitions/notAuthorizedError"
+                        }
+                    },
+                    "422": {
+                        "description": "Invalid Data",
+                        "schema": {
+                            "$ref": "#/definitions/validationError"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Deletes the event using its associated ID",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Campaign Deleted",
+                        "schema": {
+                            "$ref": "#/definitions/Event"
+                        }
+                    },
+                    "403": {
+                        "description": "Not Authorized",
+                        "schema": {
+                            "$ref": "#/definitions/notAuthorizedError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/notFoundError"
+                        }
+                    }
+                }
+            }
+        },
+        "/forms": {
+            "get": {
+                "description": "Get all the forms",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Form"
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Not Authorized",
+                        "schema": {
+                            "$ref": "#/definitions/notAuthorizedError"
+                        }
+                    }
+                }
+            }
+        },
+        "/forms/{id}": {
+            "get": {
+                "description": "Get form associated with its ID",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Form"
+                        }
+                    },
+                    "403": {
+                        "description": "Not Authorized",
+                        "schema": {
+                            "$ref": "#/definitions/notAuthorizedError"
+                        }
+                    }
+                }
+            }
+        },
+        "/payments": {
+            "get": {
+                "description": "Get basic details about all the payments",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Payment"
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Not Authorized",
+                        "schema": {
+                            "$ref": "#/definitions/notAuthorizedError"
+                        }
+                    }
+                }
+            }
+        },
+        "/payments/{id}": {
+            "get": {
+                "description": "Get payment associated with its ID",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Payment"
+                        }
+                    },
+                    "403": {
+                        "description": "Not Authorized",
+                        "schema": {
+                            "$ref": "#/definitions/notAuthorizedError"
+                        }
+                    }
+                }
+            }
+        },
+        "/logs": {
+            "get": {
+                "description": "Get all the log details",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Log"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
