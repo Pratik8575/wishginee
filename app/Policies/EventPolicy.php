@@ -58,7 +58,7 @@ class EventPolicy
      * @return bool
      */
     public function delete(User $user, Event $event){
-        return ($user->_id == $event->user_id)  && ($event->status = Event::STATUS[0]);
+        return ($user->_id == $event->user_id)  && ($event->status = Event::STATUS[0]) && ($user->group == "SU");
     }
-    
+
 }
